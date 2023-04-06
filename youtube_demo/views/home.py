@@ -1,11 +1,9 @@
 from flask import Blueprint, jsonify
 
-from config import config
-
 home = Blueprint(
     'home',
     __name__,
-    url_prefix=config.URL_PREFIX
+    url_prefix='/api/v1'
 )
 
 
@@ -14,7 +12,7 @@ def index():
     return jsonify(
         {
             'status': True,
-            'message': 'Working okay...',
+            'msg': 'Working okay...',
             'version': '1.0.0'
         }
     )
