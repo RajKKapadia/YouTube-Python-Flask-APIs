@@ -2,8 +2,8 @@ from flask import Blueprint, request
 from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt_identity
 
 from youtube_demo.constants.http_status_codes import *
-from youtube_demo.database.database import create_user, get_user, verify_user
-from youtube_demo.utils.formated_responses import format_auth_register, format_auth_verify, format_auth_me, format_auth_refresh_token
+from youtube_demo.database.auth_database import *
+from youtube_demo.utils.auth_responses import *
 
 auth = Blueprint(
     'auth',
@@ -49,6 +49,7 @@ def verify():
 def get_user():
     user = get_jwt_identity()
     return format_auth_me('Success.', user), HTTP_200_OK
+
 
 @auth.get('/users/refresh/token')
 @jwt_required()

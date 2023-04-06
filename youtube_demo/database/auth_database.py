@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from typing import Any
 
 from pymongo import MongoClient
 from dotenv import load_dotenv
@@ -12,7 +13,6 @@ client = MongoClient(os.getenv('MONGODB_URL'))
 DB_NAME = client['YoutubePythonAPI']
 
 users = DB_NAME['users']
-bookmarks = DB_NAME['bookmars']
 
 
 def create_user(user: dict) -> bool:
@@ -21,7 +21,7 @@ def create_user(user: dict) -> bool:
     result = users.insert_one(user)
     return result.acknowledged
 
-def get_user(email: str) -> bool:
+def get_user(email: str) -> Any:
     user = users.find_one({'email': email})
     if user:
         return user
@@ -38,16 +38,3 @@ def verify_user(email: str, password: str) -> bool:
             return False
     else:
         return False
-
-# print(create_user(
-#     {
-#         'user_name': 'Raj',
-#         'email': 'raj@gmail.com',
-#         'password': 'ancd1234',
-#         'created_at': datetime.now()
-#     }
-# ))
-
-# print(get_user('raj@gmjail.com'))
-# print(generate_password_hash('abcd1234').split(':')[-1])
-# print(check_password_hash('pbkdf2:sha256:260000$1NZ2MyE1xiGaZ7rn$e8f97f78579f969ff8e964a76e9cc38967952681ed0df13al8034dc1d8b2397c', 'abcd1234'))

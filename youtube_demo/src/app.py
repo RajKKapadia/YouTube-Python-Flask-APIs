@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 
 from youtube_demo.views.home import home
 from youtube_demo.views.auth import auth
+from youtube_demo.views.bookmarks import bookmarks
 
 load_dotenv('.env')
 
@@ -19,3 +20,4 @@ jwt = JWTManager(app)
 
 app.register_blueprint(home)
 app.register_blueprint(auth)
+app.register_blueprint(bookmarks)
