@@ -36,9 +36,9 @@ def verify():
                 {'email': body['email']})
             refresh_token = create_refresh_token(
                 {'email': body['email']})
-            return format_auth_verify('Success', access_token, refresh_token), HTTP_200_OK
+            return format_auth_verify('Success.', access_token, refresh_token), HTTP_200_OK
         else:
-            return format_auth_verify('Wrong email or password', '', ''), HTTP_401_UNAUTHORIZED
+            return format_auth_verify('Wrong email or password.', '', ''), HTTP_401_UNAUTHORIZED
 
     else:
         return format_auth_verify('Request has no body.', access_token, refresh_token), HTTP_400_BAD_REQUEST
@@ -54,3 +54,10 @@ def get_user():
             'user': user
         }
     ), HTTP_200_OK
+
+@auth.get('/users/refresh/token')
+@jwt_required()
+def refresh_token():
+    user = get_jwt_identity()
+    access_token = create_access_token(user)
+    return format_auth_verify('Success.', access_token, ''), HTTP_200_OK
