@@ -16,12 +16,12 @@ auth = Blueprint(
 def register():
     if request.is_json:
         body = request.get_json()
-        user = get_user(body['email'])
+        user = get_user_by_email(body['email'])
         if user:
             return format_auth_register('User already exists.'), HTTP_409_CONFLICT
         else:
             _ = create_user(body)
-            format_auth_register('User created.'), HTTP_201_CREATED
+            return format_auth_register('User created.'), HTTP_201_CREATED
     else:
         return format_auth_register('Request has no body.'), HTTP_400_BAD_REQUEST
 

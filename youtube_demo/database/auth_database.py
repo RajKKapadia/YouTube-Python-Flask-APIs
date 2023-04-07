@@ -21,7 +21,7 @@ def create_user(user: dict) -> bool:
     result = users.insert_one(user)
     return result.acknowledged
 
-def get_user(email: str) -> Any:
+def get_user_by_email(email: str) -> Any:
     user = users.find_one({'email': email})
     if user:
         return user
@@ -29,7 +29,7 @@ def get_user(email: str) -> Any:
         return None
     
 def verify_user(email: str, password: str) -> bool:
-    user = get_user(email)
+    user = get_user_by_email(email)
     if user:
         is_valid = check_password_hash(user['password'], password)
         if is_valid:
