@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 from flask import Flask
 from flask_jwt_extended import JWTManager
@@ -14,7 +15,8 @@ app = Flask(__name__)
 
 app.config.from_mapping(
     SECRET_KEY=os.environ.get("SECRET_KEY"),
-    JWT_SECRET_KEY=os.environ.get('JWT_SECRET_KEY')
+    JWT_SECRET_KEY=os.environ.get('JWT_SECRET_KEY'),
+    JWT_ACCESS_TOKEN_EXPIRES=timedelta(hours=1)
 )
 jwt = JWTManager(app)
 
