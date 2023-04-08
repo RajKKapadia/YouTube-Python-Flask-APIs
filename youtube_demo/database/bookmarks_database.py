@@ -5,7 +5,6 @@ from bson import ObjectId
 
 from pymongo import MongoClient
 from dotenv import load_dotenv
-from werkzeug.security import check_password_hash, generate_password_hash
 
 load_dotenv('.env')
 
